@@ -1,0 +1,20 @@
+# These owners will be the default owners for everything in
+# the repo. Unless a later match takes precedence,
+# they will be requested for review when someone opens a pull request.
+*       @42HK42
+
+# Backend code
+/backend/  @42HK42
+/docker/   @42HK42
+
+# Frontend code
+/frontend/ @42HK42
+
+# Documentation
+/docs/     @42HK42
+*.md       @42HK42
+
+# Configuration
+*.yml      @42HK42
+*.yaml     @42HK42
+/.github/  @42HK42
