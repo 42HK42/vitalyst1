@@ -168,6 +168,21 @@ docker-compose up -d
 
 ## 👨‍💻 Development
 
+### Branch Protection
+⚠️ **Note:** Branch protection rules are currently pending setup. They will be implemented in a future update to enforce:
+- Pull request reviews before merging
+- Status checks to pass before merging
+- Branch updates before merging
+- Linear history
+- Signed commits
+
+### Development Workflow
+1. Create feature branch from main
+2. Implement changes following TDD
+3. Run tests and linting
+4. Submit PR for review
+5. Merge after approval
+
 ### Running Tests
 
 ```bash
