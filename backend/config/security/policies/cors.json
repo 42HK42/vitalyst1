@@ -1,0 +1,22 @@
+{
+  "allowed_origins": [
+    "https://vitalyst.42hk42.com",
+    "https://api.vitalyst.42hk42.com"
+  ],
+  "allowed_methods": ["GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH"],
+  "allowed_headers": [
+    "Authorization",
+    "Content-Type",
+    "X-Requested-With",
+    "Accept",
+    "Origin",
+    "Access-Control-Request-Method",
+    "Access-Control-Request-Headers"
+  ],
+  "exposed_headers": [
+    "Access-Control-Allow-Origin",
+    "Access-Control-Allow-Credentials"
+  ],
+  "max_age": 3600,
+  "allow_credentials": true
+}

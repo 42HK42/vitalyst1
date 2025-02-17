@@ -1,0 +1,23 @@
+{
+  "default": {
+    "window": "15m",
+    "max_requests": 100
+  },
+  "auth": {
+    "window": "5m",
+    "max_requests": 20
+  },
+  "ai": {
+    "window": "1m",
+    "max_requests": 10
+  },
+  "graph": {
+    "window": "1m",
+    "max_requests": 50
+  },
+  "headers": {
+    "remaining": "X-RateLimit-Remaining",
+    "reset": "X-RateLimit-Reset",
+    "total": "X-RateLimit-Total"
+  }
+}

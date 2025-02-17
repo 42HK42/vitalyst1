@@ -21,6 +21,16 @@ A comprehensive knowledge management system for nutritional data, integrating ad
 
 Vitalyst is a sophisticated knowledge graph system designed to manage and analyze nutritional data. It combines traditional data management with cutting-edge AI technologies to provide rich, interconnected nutritional information.
 
+### Development Status
+- ✅ Phase 1: Foundation Setup (Completed)
+  - Repository and infrastructure setup
+  - Environment configuration
+  - Docker and CI/CD implementation
+- 🚧 Phase 2: Backend Development (In Progress)
+- 📅 Phase 3: AI Integration (Planned)
+- 📅 Phase 4: Frontend Development (Planned)
+- 📅 Phase 5: Testing & Optimization (Planned)
+
 ## ⭐ Key Features
 
 - 📊 Graph-based data modeling with Neo4j
@@ -65,23 +75,67 @@ Vitalyst is a sophisticated knowledge graph system designed to manage and analyz
 - Prometheus 2.45.3 (Latest)
 - Grafana 10.3.3 (Latest)
 - Sentry 23.12.1 (Latest)
+- GitHub Actions (Latest)
+- AWS EKS (Latest)
+- Snyk Security Scanner (Latest)
+- Trivy Container Scanner (Latest)
+- CodeQL Analysis (Latest)
 
 ## 📁 Project Structure
 
-```
+The project follows a modular, layered architecture designed for scalability and maintainability:
+
+```bash
 /Vitalyst
 ├── backend/                 # FastAPI backend application
-│   ├── src/
-│   │   ├── api/            # API endpoints
-│   │   ├── models/         # Pydantic models
+│   ├── src/                # Source code
+│   │   ├── api/           # API layer
+│   │   │   └── v1/        # API version 1
+│   │   │       ├── endpoints/  # Route handlers and API endpoints
+│   │   │       ├── middleware/ # Request/response middleware (auth, logging)
+│   │   │       └── schemas/    # Request/response validation schemas
+│   │   ├── models/         # Data models
+│   │   │   ├── nodes/      # Node entity models (Food, Nutrient, etc.)
+│   │   │   ├── relationships/ # Relationship models between nodes
+│   │   │   └── validators/  # Custom model validators
 │   │   ├── services/       # Business logic
+│   │   │   ├── graph/      # Neo4j database operations
+│   │   │   ├── auth/       # Authentication and authorization
+│   │   │   ├── ai/         # AI-powered content enrichment
+│   │   │   └── validation/ # Data validation services
 │   │   ├── utils/          # Utilities
-│   │   ├── tests/          # Test suites
-│   │   └── main.py         # Application entry point
-│   ├── Dockerfile          # Backend Docker configuration
-│   ├── requirements.txt    # Python dependencies
-│   ├── pyproject.toml     # Python project configuration
-│   └── setup.cfg          # Python setup configuration
+│   │   │   ├── logging/    # Logging configuration and handlers
+│   │   │   ├── metrics/    # Performance and usage metrics
+│   │   │   └── helpers/    # Common helper functions
+│   │   └── tests/          # Test suites
+│   │       ├── unit/       # Unit tests for individual components
+│   │       ├── integration/ # Integration tests between components
+│   │       └── e2e/        # End-to-end API tests
+│   ├── config/             # Configuration management
+│   │   ├── development/    # Development environment settings
+│   │   ├── production/     # Production environment settings
+│   │   ├── test/          # Test environment settings
+│   │   ├── security/       # Security configurations
+│   │   │   ├── certs/     # SSL/TLS certificates
+│   │   │   ├── keys/      # API and encryption keys
+│   │   │   └── policies/  # Security policies (CORS, rate limits)
+│   │   ├── monitoring/    # Monitoring configuration
+│   │   │   ├── grafana/   # Grafana dashboards and settings
+│   │   │   └── prometheus/ # Prometheus rules and alerts
+│   │   └── logging/       # Logging configuration
+│   │       └── fluentd/   # Log aggregation setup
+│   ├── docs/               # Documentation
+│   │   ├── api/           # API documentation and OpenAPI specs
+│   │   ├── models/        # Data model documentation
+│   │   └── deployment/    # Deployment and operations guides
+│   ├── scripts/           # Utility scripts
+│   │   ├── db/           # Database management scripts
+│   │   ├── deployment/   # Deployment automation scripts
+│   │   └── validation/   # Data validation scripts
+│   ├── Dockerfile        # Backend Docker configuration
+│   ├── requirements.txt  # Python dependencies
+│   ├── pyproject.toml   # Python project configuration
+│   └── setup.cfg        # Python setup configuration
 ├── frontend/               # React/Remix frontend
 │   ├── src/
 │   │   ├── components/     # React components
@@ -122,16 +176,38 @@ Vitalyst is a sophisticated knowledge graph system designed to manage and analyz
 ├── LICENSE             # MIT License
 ├── README.md           # Project documentation
 └── SECURITY.md         # Security policy
-```
+
+### Key Directories
+
+The project is organized into several key areas:
+
+#### Backend Core (`/backend/src/`)
+- `api/`: REST API endpoints and middleware
+- `models/`: Data models for nodes and relationships
+- `services/`: Core business logic implementation
+- `utils/`: Shared utility functions
+
+#### Configuration (`/backend/config/`)
+- `development/, production/, test/`: Environment-specific settings
+- `security/`: Certificates, keys, and security policies
+- `monitoring/`: Grafana dashboards and Prometheus rules
+- `logging/`: Log aggregation and management
+
+#### Documentation (`/backend/docs/`)
+- `api/`: API documentation and OpenAPI specs
+- `models/`: Data model documentation
+- `deployment/`: Deployment and operations guides
+
+#### Infrastructure
+- `monitoring/`: System monitoring and metrics
+- `docker/`: Container configurations
+- `scripts/`: Utility and automation scripts
 
 ## 🚀 Getting Started
 
 ### Prerequisites
 
-- Python 3.12+
-- Node.js 20 LTS
-- Docker 25.0.2 & Docker Compose 2.24.5
-- Neo4j 5.18.0
+See [backend/requirements.txt](backend/requirements.txt) for Python dependencies.
 
 ### Installation
 
@@ -141,103 +217,85 @@ git clone https://github.com/42HK42/vitalyst1.git
 cd vitalyst1
 ```
 
-2. **Set up environment variables:**
+2. **Set up environment:**
 ```bash
-cp config/env/.env.example .env
-# Edit .env with your configuration
+cp config/env/.env.example .env  # Configure your .env
+make setup  # Installs all dependencies
 ```
 
-3. **Install backend dependencies:**
+3. **Start development environment:**
 ```bash
-cd backend
-python -m venv .venv
-source .venv/bin/activate  # or `.venv\Scripts\activate` on Windows
-pip install -r requirements.txt
+make dev  # Starts all services
 ```
 
-4. **Install frontend dependencies:**
-```bash
-cd frontend
-npm install
-```
+## 📖 Documentation
 
-5. **Start the development environment:**
-```bash
-docker-compose up -d
-```
+Comprehensive documentation is available in the following locations:
+
+- `/backend/docs/api/`: API specifications and usage
+- `/backend/docs/models/`: System architecture and data models
+- `/backend/docs/deployment/`: Development, deployment, and operations guides
+
+For security policies and procedures, see [SECURITY.md](SECURITY.md).
+
+## 📄 License
+
+This software is proprietary and confidential. All rights reserved.
+See [LICENSE](LICENSE) file for the full terms and conditions.
+
+For licensing inquiries, please contact: legal@42hk42.com
 
 ## 👨‍💻 Development
 
-### Branch Protection
-⚠️ **Note:** Branch protection rules are currently pending setup. They will be implemented in a future update to enforce:
-- Pull request reviews before merging
-- Status checks to pass before merging
-- Branch updates before merging
-- Linear history
-- Signed commits
+### Backend Development
+```bash
+cd backend
+source .venv/bin/activate
+python -m src.main
+```
 
-### Development Workflow
-1. Create feature branch from main
-2. Implement changes following TDD
-3. Run tests and linting
-4. Submit PR for review
-5. Merge after approval
+### Frontend Development
+```bash
+cd frontend
+npm run dev
+```
 
-### Running Tests
+### Docker Development
+```bash
+# Start all services
+docker-compose up -d
+
+# View logs
+docker-compose logs -f
+
+# Rebuild services
+docker-compose build
+
+# Stop all services
+docker-compose down
+```
+
+## 🧪 Testing
 
 ```bash
 # Backend tests
 cd backend
-pytest
+pytest src/tests/unit
+pytest src/tests/integration
+pytest src/tests/e2e
 
 # Frontend tests
 cd frontend
 npm test
 ```
 
-### Code Quality
-
-```bash
-# Backend
-cd backend
-black .
-flake8
-mypy .
-
-# Frontend
-cd frontend
-npm run lint
-npm run format
-```
-
-## 📚 Documentation
-
-- [Architecture Overview](docs/architecture/README.md)
-- [API Documentation](docs/api/README.md)
-- [Development Guide](docs/development/README.md)
-- [Deployment Guide](docs/deployment/README.md)
-
-## 🤝 Contributing
-
-Please read [CONTRIBUTING.md](CONTRIBUTING.md) for details on our code of conduct and development process.
-
 ## 🔒 Security
 
-For security concerns, please read our [Security Policy](SECURITY.md).
+See [SECURITY.md](SECURITY.md) for security policies and procedures.
 
 ## 📄 License
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+This software is proprietary and confidential. All rights reserved.
+See [LICENSE](LICENSE) file for the full terms and conditions.
 
----
-
-## 🙏 Acknowledgments
-
-- Neo4j for graph database technology
-- OpenAI, Anthropic, and Perplexity for AI capabilities
-- The open-source community for various tools and libraries
-
-## 📊 Project Status
-
-- **Current Version:** 1.0.0-alpha
-- **Status:** Active Development
+For licensing inquiries, please contact: legal@42hk42.com

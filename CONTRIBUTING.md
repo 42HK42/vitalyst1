@@ -79,4 +79,5 @@ We use [SemVer](http://semver.org/) for versioning. For the versions available, 
 
 ## License
 
-By contributing, you agree that your contributions will be licensed under its MIT License. 
+This project is proprietary and confidential. All rights reserved.
+See the [LICENSE](LICENSE) file for details.

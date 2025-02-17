@@ -61,13 +61,46 @@ Please include the following information in your report:
    - Code review for security implications
    - Security-focused testing
 
-5. **Infrastructure**
+5. **CI/CD Security**
+   - Automated security scanning in pipelines
+     - Snyk for dependency vulnerabilities
+     - Trivy for container scanning
+     - CodeQL for static code analysis
+     - Secret scanning for credential leaks
+     - Infrastructure scanning for misconfigurations
+   - Secure deployment processes
+     - Environment isolation
+     - Secure secret management
+     - Infrastructure validation
+     - Access control and audit logging
+   - Container security
+     - Image signing and verification
+     - Base image scanning
+     - Runtime security monitoring
+     - Resource isolation
+   - Build security
+     - Reproducible builds
+     - Dependency verification
+     - Artifact signing
+     - Build environment isolation
+
+6. **Infrastructure**
    - Regular security updates for all systems
    - Network security monitoring
    - Proper firewall configuration
    - Regular security assessments
 
 ## Security Measures
+
+### Continuous Security
+- Automated security testing in CI/CD pipeline
+- Real-time vulnerability monitoring
+- Automated security patches
+- Dependency update automation
+- Container security scanning
+- Infrastructure as Code validation
+- Compliance automation
+- Security metrics and reporting
 
 ### Data Security
 - All data is encrypted at rest using industry-standard encryption
@@ -110,4 +143,4 @@ We currently do not have a bug bounty program, but we greatly appreciate respons
 
 For any security-related questions or concerns, please contact:
 - Security Team: [security@vitalyst.com](mailto:security@vitalyst.com)
-- Emergency Contact: [emergency@vitalyst.com](mailto:emergency@vitalyst.com) 
+- Emergency Contact: [emergency@vitalyst.com](mailto:emergency@vitalyst.com)

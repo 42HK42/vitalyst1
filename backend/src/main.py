@@ -4,8 +4,8 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from prometheus_client import make_asgi_app
 
-from src.api.routes import router as api_router
-from src.utils.config import Settings
+from src.api.v1.endpoints.routes import router as api_router
+from src.utils.helpers.config import Settings
 
 # Load settings
 settings = Settings()
@@ -33,7 +33,8 @@ app.mount("/metrics", metrics_app)
 # Include API routes
 app.include_router(api_router, prefix="/api/v1")
 
+
 @app.get("/health")
 async def health_check():
     """Health check endpoint."""
-    return {"status": "healthy"} 
+    return {"status": "healthy"}

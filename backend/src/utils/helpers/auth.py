@@ -52,9 +52,7 @@ def create_access_token(data: dict, expires_delta: Optional[timedelta] = None) -
         expire = datetime.utcnow() + timedelta(minutes=15)
     to_encode.update({"exp": expire})
     encoded_jwt = jwt.encode(
-        to_encode,
-        settings.JWT_SECRET,
-        algorithm=settings.JWT_ALGORITHM
+        to_encode, settings.JWT_SECRET, algorithm=settings.JWT_ALGORITHM
     )
     return encoded_jwt
 
@@ -68,9 +66,7 @@ async def get_current_user(token: str = Depends(oauth2_scheme)) -> User:
     )
     try:
         payload = jwt.decode(
-            token,
-            settings.JWT_SECRET,
-            algorithms=[settings.JWT_ALGORITHM]
+            token, settings.JWT_SECRET, algorithms=[settings.JWT_ALGORITHM]
         )
         username: str = payload.get("sub")
         if username is None:
@@ -78,24 +74,24 @@ async def get_current_user(token: str = Depends(oauth2_scheme)) -> User:
         token_data = TokenData(username=username)
     except JWTError:
         raise credentials_exception
-    
+
     # Here you would typically look up the user in your database
     # For now, we'll just return a mock user
     user = User(
         username=token_data.username,
         email=f"{token_data.username}@example.com",
-        full_name="Test User"
+        full_name="Test User",
     )
-    
+
     if user is None:
         raise credentials_exception
     return user
 
 
 async def get_current_active_user(
-    current_user: User = Depends(get_current_user)
+    current_user: User = Depends(get_current_user),
 ) -> User:
     """Get the current active user."""
     if current_user.disabled:
         raise HTTPException(status_code=400, detail="Inactive user")
-    return current_user 
+    return current_user
